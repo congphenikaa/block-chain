@@ -1,0 +1,9 @@
+[package]
+name = "game_guess"
+edition = "2024.beta"
+
+[dependencies]
+Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/iota-framework", rev = "mainnet" }
+
+[addresses]
+game_guess = "0x0"
