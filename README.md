@@ -1,17 +1,17 @@
 # 🎮 Game Guess - IOTA Blockchain dApp
 
-Một trò chơi đoán số phi tập trung được xây dựng trên mạng IOTA blockchain. Người chơi cần đoán đúng 4 số bí mật để nhận được Flag NFT.
+A decentralized number guessing game built on the IOTA blockchain network. Players need to guess 4 secret numbers correctly to receive a Flag NFT.
 
-## ✨ Tính năng
+## ✨ Features
 
-- 🔗 Kết nối ví IOTA thông qua IOTA dApp Kit
-- 🎯 Gửi dự đoán của bạn lên smart contract
-- 📦 Nhận GuessBox NFT sau mỗi lần đoán
-- 🏆 Nhận Flag NFT khi đoán đúng
-- ⛓️ Hoàn toàn on-chain, minh bạch và bất biến
-- 🎨 Giao diện hiện đại với Tailwind CSS
+- 🔗 Connect IOTA wallet via IOTA dApp Kit
+- 🎯 Submit your guess to the smart contract
+- 📦 Receive GuessBox NFT after each guess
+- 🏆 Get Flag NFT when guessing correctly
+- ⛓️ Fully on-chain, transparent and immutable
+- 🎨 Modern UI with Tailwind CSS
 
-## 🛠️ Công nghệ sử dụng
+## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 16, React 19, TypeScript
 - **Blockchain**: IOTA Network (Devnet)
@@ -19,16 +19,16 @@ Một trò chơi đoán số phi tập trung được xây dựng trên mạng I
 - **UI**: Tailwind CSS, Radix UI
 - **Web3**: @iota/dapp-kit, @iota/iota-sdk
 
-## 📋 Yêu cầu
+## 📋 Prerequisites
 
-- Node.js 18 trở lên
-- IOTA CLI đã cài đặt
-- Ví IOTA (hỗ trợ IOTA dApp Kit)
-- IOTA test tokens (cho devnet)
+- Node.js 18+
+- IOTA CLI installed
+- IOTA wallet (supporting IOTA dApp Kit)
+- IOTA test tokens (for devnet)
 
-## 🚀 Hướng dẫn cài đặt
+## 🚀 Installation
 
-### 1. Clone và cài đặt dependencies
+### 1. Clone and install dependencies
 
 ```bash
 git clone <repository-url>
@@ -36,7 +36,7 @@ cd GameGuess
 npm install --legacy-peer-deps
 ```
 
-> **Lưu ý**: Sử dụng `--legacy-peer-deps` để tránh xung đột peer dependencies giữa React 19 và các thư viện khác.
+> **Note**: Use `--legacy-peer-deps` to avoid peer dependency conflicts between React 19 and other libraries.
 
 ### 2. Deploy Smart Contract
 
@@ -44,40 +44,40 @@ npm install --legacy-peer-deps
 npm run iota-deploy
 ```
 
-Sau khi deploy thành công, bạn sẽ nhận được **Package ID**. Copy ID này!
+After successful deployment, you'll receive a **Package ID**. Copy this ID!
 
-### 3. Cập nhật cấu hình
+### 3. Update configuration
 
-Mở file `lib/config.ts` và thay thế `PACKAGE_ID` bằng Package ID bạn vừa nhận được:
+Open `lib/config.ts` and replace `PACKAGE_ID` with your Package ID:
 
 ```typescript
-export const PACKAGE_ID = "0x..."; // Thay bằng Package ID của bạn
+export const PACKAGE_ID = "0x..."; // Replace with your Package ID
 ```
 
-### 4. Chạy ứng dụng
+### 4. Run the application
 
 ```bash
 npm run dev
 ```
 
-Mở trình duyệt và truy cập [http://localhost:3000](http://localhost:3000)
+Open your browser and visit [http://localhost:3000](http://localhost:3000)
 
-## 🎮 Cách chơi
+## 🎮 How to Play
 
-1. **Kết nối ví**: Nhấn "Connect Wallet" và chọn ví IOTA của bạn
-2. **Nhập dự đoán**: Nhập 4 số (mỗi số từ 0-255)
-3. **Gửi dự đoán**: Nhấn "Submit Guess" để gửi lên blockchain
-4. **Nhận GuessBox ID**: Sau khi giao dịch thành công, bạn sẽ nhận được GuessBox object ID
-5. **Kiểm tra kết quả**: Nhập GuessBox ID và nhấn "Check" để xem kết quả
-6. **Nhận Flag**: Nếu đoán đúng, bạn sẽ nhận được Flag NFT! 🎉
+1. **Connect Wallet**: Click "Connect Wallet" and select your IOTA wallet
+2. **Enter Guess**: Input 4 numbers (each number from 0-255)
+3. **Submit Guess**: Click "Submit Guess" to send to blockchain
+4. **Get GuessBox ID**: After successful transaction, you'll receive a GuessBox object ID
+5. **Check Result**: Enter GuessBox ID and click "Check" to see the result
+6. **Receive Flag**: If correct, you'll receive a Flag NFT! 🎉
 
 ## 🧩 Smart Contract
 
-### Cấu trúc
+### Structure
 
 ```move
 module game_guess::guess {
-    // Struct lưu trữ dự đoán của người chơi
+    // Struct storing player's guess
     public struct GuessAttempt has store {
         number1: u16,
         number2: u16,
@@ -85,13 +85,13 @@ module game_guess::guess {
         number4: u16,
     }
 
-    // NFT chứa dự đoán
+    // NFT containing the guess
     public struct GuessBox has key, store {
         id: UID,
         guess: GuessAttempt,
     }
 
-    // NFT phần thưởng khi đoán đúng
+    // Reward NFT when guessed correctly
     public struct Flag has key, store {
         id: UID,
         user: address,
@@ -100,32 +100,32 @@ module game_guess::guess {
 }
 ```
 
-### Các hàm chính
+### Main Functions
 
 #### `submit_guess(number1: u16, number2: u16, number3: u16, number4: u16)`
-- Gửi dự đoán của bạn với 4 số kiểu `u16` (0-65535)
-- Tạo một GuessBox NFT chứa dự đoán của bạn
-- GuessBox được chuyển về địa chỉ ví của bạn
+- Submit your guess with 4 numbers of type `u16` (0-65535)
+- Creates a GuessBox NFT containing your guess
+- GuessBox is transferred to your wallet address
 
 #### `check_guess(guessbox: &GuessBox)`
-- Kiểm tra dự đoán có đúng không bằng cách so sánh BCS encoding
-- Nếu đúng: Tạo và chuyển Flag NFT cho bạn
-- Nếu sai: Transaction sẽ fail với error `EIncorrectGuess`
+- Checks if the guess is correct by comparing BCS encoding
+- If correct: Creates and transfers Flag NFT to you
+- If incorrect: Transaction fails with error `EIncorrectGuess`
 
-### Cách hoạt động
+### How It Works
 
-Smart contract sử dụng **BCS (Binary Canonical Serialization)** để so sánh:
-- Dự đoán của bạn được serialize thành bytes
-- So sánh với chuỗi hex bí mật: `x"0a0014001e002800"`
-- Đáp án đúng: **[10, 20, 30, 40]**
+The smart contract uses **BCS (Binary Canonical Serialization)** for comparison:
+- Your guess is serialized into bytes
+- Compared with the secret hex string: `x"0a0014001e002800"`
+- Correct answer: **[10, 20, 30, 40]**
 
-## 📁 Cấu trúc dự án
+## 📁 Project Structure
 
 ```
 GameGuess/
 ├── app/                          # Next.js App Router
-│   ├── layout.tsx               # Root layout với providers
-│   ├── page.tsx                 # Trang chính - Game UI
+│   ├── layout.tsx               # Root layout with providers
+│   ├── page.tsx                 # Main page - Game UI
 │   └── globals.css              # Global styles
 ├── components/                   # React components
 │   └── Provider.tsx             # IOTA providers (QueryClient, WalletProvider)
@@ -136,74 +136,74 @@ GameGuess/
 │       ├── Move.toml            # Move package config
 │       └── build/               # Compiled contract (auto-generated)
 ├── hooks/                        # Custom React hooks
-│   └── useContract.ts           # Hook để tương tác với contract
+│   └── useContract.ts           # Hook for contract interaction
 ├── lib/                          # Utilities
-│   └── config.ts                # Cấu hình (PACKAGE_ID, network, etc.)
+│   └── config.ts                # Configuration (PACKAGE_ID, network, etc.)
 ├── scripts/                      # Scripts
-│   ├── iota-deploy-wrapper.js   # Script deploy contract
+│   ├── iota-deploy-wrapper.js   # Contract deployment script
 │   └── iota-generate-prompt-wrapper.js
 ├── next.config.ts               # Next.js config
 ├── tailwind.config.ts           # Tailwind config
 └── package.json                 # Dependencies
 ```
 
-## 🔧 Scripts có sẵn
+## 🔧 Available Scripts
 
 ```bash
 # Development
-npm run dev          # Chạy dev server
+npm run dev          # Run dev server
 
 # Build
-npm run build        # Build production
-npm run start        # Chạy production server
+npm run build        # Build for production
+npm run start        # Run production server
 
 # Smart Contract
-npm run iota-deploy  # Deploy contract lên IOTA network
+npm run iota-deploy  # Deploy contract to IOTA network
 
 # Linting
-npm run lint         # Chạy ESLint
+npm run lint         # Run ESLint
 ```
 
-## 🐛 Xử lý lỗi thường gặp
+## 🐛 Troubleshooting
 
-### Lỗi: "Cannot find module @iota/dapp-kit"
+### Error: "Cannot find module @iota/dapp-kit"
 ```bash
 npm install --legacy-peer-deps
 ```
 
-### Lỗi: "Package not deployed" hoặc transaction fail
-- Đảm bảo bạn đã chạy `npm run iota-deploy`
-- Kiểm tra `PACKAGE_ID` trong `lib/config.ts` đã đúng chưa
-- Xác nhận bạn đang kết nối với đúng network (devnet)
+### Error: "Package not deployed" or transaction fails
+- Make sure you've run `npm run iota-deploy`
+- Check if `PACKAGE_ID` in `lib/config.ts` is correct
+- Verify you're connected to the correct network (devnet)
 
-### Lỗi: "Insufficient gas" hoặc transaction rejected
-- Đảm bảo ví của bạn có đủ IOTA test tokens
-- Lấy test tokens từ [IOTA Devnet Faucet](https://faucet.devnet.iota.cafe/)
+### Error: "Insufficient gas" or transaction rejected
+- Ensure your wallet has enough IOTA test tokens
+- Get test tokens from [IOTA Devnet Faucet](https://faucet.devnet.iota.cafe/)
 
-### Guess không đúng nhưng bạn chắc chắn đã đoán đúng
-- Kiểm tra lại đáp án: **10, 20, 30, 40** (không phải 7, 13, 42, 99)
-- Đảm bảo thứ tự các số đúng
-- Kiểm tra GuessBox ID có chính xác không
+### Guess is incorrect but you're sure it's right
+- Double-check the answer: **10, 20, 30, 40** (not 7, 13, 42, 99)
+- Make sure the number order is correct
+- Verify the GuessBox ID is accurate
 
-## 💡 Gợi ý
+## 💡 Hints
 
-Đáp án là 4 số đặc biệt:
-- 🔢 Các số tròn đẹp
-- 📊 Có quy luật tăng dần
-- 🎯 Nằm trong khoảng 0-255
-- 🔐 Được encode thành: `x"0a0014001e002800"`
+The answer consists of 4 special numbers:
+- 🔢 Nice round numbers
+- 📊 Following an increasing pattern
+- 🎯 Within the range 0-255
+- 🔐 Encoded as: `x"0a0014001e002800"`
 
-**Đáp án**: [10, 20, 30, 40] 😉
+**Answer**: [10, 20, 30, 40] 😉
 
-## 🔐 Bảo mật
+## 🔐 Security
 
-- ✅ Smart contract được viết bằng Move - ngôn ngữ an toàn về tài nguyên
-- ✅ Đáp án được encode trong bytecode, không dễ dàng đọc được
-- ✅ Sử dụng BCS serialization để xác thực
-- ✅ Không có backdoor hay admin functions
-- ⚠️ Đây là dApp demo trên testnet, không dùng cho production
+- ✅ Smart contract written in Move - a resource-safe language
+- ✅ Answer is encoded in bytecode, not easily readable
+- ✅ Uses BCS serialization for validation
+- ✅ No backdoors or admin functions
+- ⚠️ This is a demo dApp on testnet, not for production use
 
-## 📚 Tài liệu tham khảo
+## 📚 References
 
 - [IOTA Documentation](https://docs.iota.org)
 - [Move Language Book](https://move-language.github.io/move/)
@@ -212,13 +212,13 @@ npm install --legacy-peer-deps
 
 ## 📝 License
 
-MIT License - Xem file LICENSE để biết thêm chi tiết
+MIT License - See LICENSE file for more details
 
-## 👨‍💻 Phát triển
+## 👨‍💻 Development
 
-Dự án này được tạo ra như một demo để học cách xây dựng dApp trên IOTA blockchain.
+This project was created as a demo to learn how to build dApps on the IOTA blockchain.
 
 ---
 
-**Chúc bạn chơi vui vẻ!** 🎮🎉
+**Have fun playing!** 🎮🎉
 #
